@@ -1,37 +1,23 @@
 import express from "express";
+import connectDB from "./db/index.js";
 import dotenv from "dotenv";
-dotenv.config();
+
+// Load environment variables
+dotenv.config({
+  path: "./env", // If your file is named "env", not ".env"
+});
 
 const app = express();
-const port = process.env.PORT || 3000;
 
+// Connect to the database
+connectDB();
+
+// Your express setup (example)
 app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-// app.get("/twitter", (req, res) => {
-//   res.send("dfasdf");
-// });
-app.get("/api/v1/jokes", (req, res) => {
-  const jokes = [
-    { id: 1, joke: "joke1", punchline: "punchline1" },
-    { id: 2, joke: "joke2", punchline: "punchline2" },
-    { id: 3, joke: "joke3", punchline: "punchline3" },
-    { id: 4, joke: "joke4", punchline: "punchline4" },
-    { id: 5, joke: "joke5", punchline: "punchline5" },
-    { id: 6, joke: "joke6", punchline: "punchline6" },
-  ];
-  res.send(jokes);
+  res.send("Hello, world!");
 });
 
-app.get("/login", (req, res) => {
-  res.send("<h1>Login</h1>");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
-
-function sayHello(name) {
-  console.log(`Hello ${name}`);
-}
-sayHello("Tanmay");
